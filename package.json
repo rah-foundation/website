@@ -1,0 +1,32 @@
+{
+  "name": "@rah-foundation/website",
+  "version": "1.0.0",
+  "description": "Rah Foundation webstie ",
+  "main": "server.tsx",
+  "scripts": {
+    "start": "ts-node server.tsx",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rah-foundation/website.git"
+  },
+  "author": "Mohsen Azimi <me@azimi.me>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rah-foundation/website/issues"
+  },
+  "homepage": "https://github.com/rah-foundation/website#readme",
+  "devDependencies": {
+    "express": "^4.14.0",
+    "less": "^2.7.1",
+    "less-loader": "^2.2.3",
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0",
+    "react-router": "^2.4.1",
+    "ts-loader": "^0.8.2",
+    "ts-node": "^0.9.1",
+    "typescript": "^1.8.10",
+    "webpack": "^1.13.1"
+  }
+}
