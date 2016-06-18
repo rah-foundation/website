@@ -1,5 +1,8 @@
 import * as React from 'react';
 
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
+
 export default class App extends React.Component<{}, {}> {
     render() {
         return (
@@ -8,7 +11,8 @@ export default class App extends React.Component<{}, {}> {
                     <title>Ctrl+S</title>
                 </head>
                 <body>
-
+                    <Header />
+                    <Footer />
                 </body>
             </html>
         );
