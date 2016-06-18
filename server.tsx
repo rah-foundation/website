@@ -2,18 +2,14 @@
 
 import * as React from 'react';
 import {renderToString} from 'react-dom/server'
-import {Route, Router, match, RouterContext} from 'react-router';
+import {Router, match, RouterContext} from 'react-router';
 import * as Express from 'express';
 
-import App from './components/App';
+import {routes} from './routes';
 
 const PORT = process.env.PORT || 8088;
 
 const app = Express();
-
-const routes = [
-    <Route path='/' component={App} />
-]
 
 app.get('*', (req, res)=> {
 

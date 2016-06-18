@@ -2,6 +2,15 @@ import * as React from 'react';
 
 export default class App extends React.Component<{}, {}> {
     render() {
-        return <div>Hello world!</div>
+        return (
+            <html doctype='html'>
+                <head>
+                    <title>Ctrl+S</title>
+                </head>
+                <body>
+
+                </body>
+            </html>
+        );
     }
 }
