@@ -6,15 +6,13 @@ import Footer from '../../components/Footer';
 export default class App extends React.Component<{}, {}> {
     render() {
         return (
-            <html doctype='html'>
-                <head>
-                    <title>Ctrl+S</title>
-                </head>
-                <body>
-                    <Header />
-                    <Footer />
-                </body>
-            </html>
+            <div className='app'>
+                <Header />
+                <main>
+                    {this.props.children}
+                </main>
+                <Footer />
+            </div>
         );
     }
 }
