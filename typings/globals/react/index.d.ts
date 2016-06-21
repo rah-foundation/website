@@ -148,7 +148,7 @@ declare namespace __React {
     var PropTypes: ReactPropTypes;
     var Children: ReactChildren;
     var version: string;
-    
+
     //
     // Component API
     // ----------------------------------------------------------------------
@@ -356,7 +356,7 @@ declare namespace __React {
         pseudoElement: string;
         elapsedTime: number;
     }
-    
+
     interface TransitionEvent extends SyntheticEvent {
         propertyName: string;
         pseudoElement: string;

@@ -18,9 +18,23 @@ const config: Configuration = {
     module: {
         loaders: [
             {
+                test: /\.(less|css)$/,
+                loader: [
+                    'style',
+                    'css?modules&importLoaders=1',
+                    'less'
+                ].join('!')
+            },
+            {
                 test: /\.tsx?$/,
                 loader: 'ts-loader',
                 exclude: 'node_modules'
+            },
+        ],
+        preLoaders: [
+            {
+                test: /\.js$/,
+                loader: 'source-map-loader'
             }
         ]
     }
