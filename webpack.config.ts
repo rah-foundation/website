@@ -13,7 +13,7 @@ const config: Configuration = {
     },
     output: {
         path: joinPath(__dirname, 'dist'),
-        filename: 'client.js'
+        filename: '[name]-[hash:5].js'
     },
     module: {
         loaders: [
