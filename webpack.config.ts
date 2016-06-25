@@ -19,13 +19,13 @@ const config: Configuration = {
         loaders: [
             {
                 test: /\.tsx?$/,
-                loader: 'ts-loader',
+                loader: 'awesome-typescript-loader',
                 exclude: 'node_modules'
             },
             {
                 test: /\.css$/,
                 exclude: /node_modules/,
-                loader: 'ts-loader'
+                loader: 'awesome-typescript-loader'
             }
         ],
         preLoaders: [

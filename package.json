@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/rah-foundation/website#readme",
   "devDependencies": {
+    "awesome-typescript-loader": "^1.1.1",
     "css-loader": "^0.23.1",
     "express": "^4.14.0",
     "less": "^2.7.1",
@@ -27,7 +28,6 @@
     "react-router": "^2.4.1",
     "source-map-loader": "^0.1.5",
     "style-loader": "^0.13.1",
-    "ts-loader": "^0.8.2",
     "ts-node": "^0.9.1",
     "typed-css-modules": "^0.1.10",
     "typed-css-modules-loader": "0.0.1",
