@@ -1,0 +1,9 @@
+.faq {
+    color: red;
+}
+.foo h1 {
+    text-decoration: underline;
+}
+.foo h1:hover {
+    color: lawngreen;
+}

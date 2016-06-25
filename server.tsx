@@ -39,7 +39,7 @@ app.get('*', (req, res)=> {
     });
 });
 
-function renderIndex(renderProps): string {
+function renderIndex(renderProps: Object): string {
     return `
     <html doctype='html'>
         <head>
@@ -53,7 +53,7 @@ function renderIndex(renderProps): string {
     .trim();
 }
 
-app.listen(PORT, error => {
+app.listen(PORT, (error: Error) => {
     if (error) {
         return console.error(error);
     }

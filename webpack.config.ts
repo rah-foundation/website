@@ -4,7 +4,7 @@ import {Configuration} from 'webpack';
 
 const config: Configuration = {
     resolve: {
-        extensions: ['', '.js', '.less', '.ts', '.tsx'],
+        extensions: ['', '.js', '.css', '.css.d.ts', '.ts', '.tsx'],
         root: __dirname,
         modulesDirectories: ['node_modules']
     },
@@ -18,23 +18,21 @@ const config: Configuration = {
     module: {
         loaders: [
             {
-                test: /\.(less|css)$/,
-                loader: [
-                    'style',
-                    'css?modules&importLoaders=1',
-                    'less'
-                ].join('!')
-            },
-            {
                 test: /\.tsx?$/,
                 loader: 'ts-loader',
                 exclude: 'node_modules'
             },
+            {
+                test: /\.css$/,
+                exclude: /node_modules/,
+                loader: 'ts-loader'
+            }
         ],
         preLoaders: [
             {
-                test: /\.js$/,
-                loader: 'source-map-loader'
+                test: /\.css$/,
+                exclude: /node_modules/,
+                loader: 'typed-css-modules'
             }
         ]
     }
