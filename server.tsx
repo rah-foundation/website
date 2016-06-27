@@ -7,6 +7,12 @@ import * as Express from 'express';
 import * as webpack from 'webpack';
 const webpackDevMiddleware = require('webpack-dev-middleware');
 
+const _DEVELOPMENT_ = true;
+
+require('css-modules-require-hook')({
+    generateScopedName: '[name]__[local]___[hash:base64:5]'
+});
+
 import {routes} from './routes';
 
 import webpackConfig from './webpack.config';
@@ -15,13 +21,17 @@ const PORT = process.env.PORT || 8088;
 
 const app = Express();
 
-app.use(webpackDevMiddleware(webpack(webpackConfig), {
-    noInfo: false,
-    publicPath: '/dist',
-    stats: {
-        colors: true
-    }
-}));
+if (_DEVELOPMENT_) {
+    app.use(webpackDevMiddleware(webpack(webpackConfig), {
+        noInfo: false,
+        publicPath: '/',
+        stats: {
+            colors: true
+        }
+    }));
+} else {
+    app.use(Express.static('dist'));
+}
 
 app.get('*', (req, res)=> {
 
@@ -44,7 +54,7 @@ function renderIndex(renderProps: Object): string {
     <html doctype='html'>
         <head>
             <title>Ctrl+S</title>
-            <script src='/dist/client.js' defer async></script>
+            <script src='/client.js' defer async></script>
         </head>
         <body>
             <div id="root">${renderToString(<RouterContext {...renderProps} />)}</div>

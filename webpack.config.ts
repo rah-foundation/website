@@ -13,7 +13,7 @@ const config: Configuration = {
     },
     output: {
         path: joinPath(__dirname, 'dist'),
-        filename: '[name]-[hash:5].js'
+        filename: '[name].js'
     },
     module: {
         loaders: [
@@ -25,14 +25,14 @@ const config: Configuration = {
             {
                 test: /\.css$/,
                 exclude: /node_modules/,
-                loader: 'awesome-typescript-loader'
+                loaders: ['css-loader?modules']
             }
         ],
         preLoaders: [
             {
                 test: /\.css$/,
                 exclude: /node_modules/,
-                loader: 'typed-css-modules'
+                loaders: ['typed-css-modules']
             }
         ]
     }

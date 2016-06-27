@@ -1,8 +1,7 @@
 import * as React from 'react';
 import {Link} from 'react-router';
 
-// import * as style from './style.css';
-const style = require('./style.css');
+import * as style from './style.css';
 
 export default class FAQ extends React.Component<{}, {}> {
     render() {
