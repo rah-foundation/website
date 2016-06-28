@@ -2,9 +2,11 @@ import * as webpack from 'webpack';
 import {join as joinPath} from 'path';
 import {Configuration} from 'webpack';
 
+export const CSS_MODULES_LOCAL_ID_NAME = '[name]__[local]___[hash:base64:5]';
+
 const config: Configuration = {
     resolve: {
-        extensions: ['', '.js', '.css', '.css.d.ts', '.ts', '.tsx'],
+        extensions: ['', '.js', '.css', '.ts', '.tsx'],
         root: __dirname,
         modulesDirectories: ['node_modules']
     },
@@ -18,20 +20,17 @@ const config: Configuration = {
     module: {
         loaders: [
             {
-                test: /\.tsx?$/,
-                loader: 'awesome-typescript-loader',
-                exclude: 'node_modules'
+                test: /\.ts(x?)$/,
+                loader: 'ts-loader'
             },
             {
                 test: /\.css$/,
-                exclude: /node_modules/,
-                loaders: ['css-loader?modules']
+                loader: `style!css?modules&localIdentName=${CSS_MODULES_LOCAL_ID_NAME}`
             }
         ],
         preLoaders: [
             {
                 test: /\.css$/,
-                exclude: /node_modules/,
                 loaders: ['typed-css-modules']
             }
         ]

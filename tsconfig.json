@@ -13,6 +13,7 @@
     "node_modules"
   ],
   "awesomeTypescriptLoaderOptions": {
-    "allowNonTsExtensions": true
+    "allowNonTsExtensions": true,
+    "module": "none"
   }
 }

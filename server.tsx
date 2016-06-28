@@ -6,16 +6,16 @@ import {Router, match, RouterContext} from 'react-router';
 import * as Express from 'express';
 import * as webpack from 'webpack';
 const webpackDevMiddleware = require('webpack-dev-middleware');
+import webpackConfig from './webpack.config';
+import {CSS_MODULES_LOCAL_ID_NAME} from './webpack.config'
 
 const _DEVELOPMENT_ = true;
 
 require('css-modules-require-hook')({
-    generateScopedName: '[name]__[local]___[hash:base64:5]'
+    generateScopedName: CSS_MODULES_LOCAL_ID_NAME
 });
 
 import {routes} from './routes';
-
-import webpackConfig from './webpack.config';
 
 const PORT = process.env.PORT || 8088;
 
