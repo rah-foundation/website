@@ -2,6 +2,8 @@ import * as webpack from 'webpack';
 import {join as joinPath} from 'path';
 import {Configuration} from 'webpack';
 
+export const CSS_MODULES_LOCAL_ID_NAME = '[name]__[local]___[hash:base64:5]';
+
 const config: Configuration = {
     resolve: {
         extensions: ['', '.js', '.less', '.ts', '.tsx'],
@@ -13,28 +15,23 @@ const config: Configuration = {
     },
     output: {
         path: joinPath(__dirname, 'dist'),
-        filename: 'client.js'
+        filename: '[name].js'
     },
     module: {
         loaders: [
             {
-                test: /\.(less|css)$/,
-                loader: [
-                    'style',
-                    'css?modules&importLoaders=1',
-                    'less'
-                ].join('!')
+                test: /\.ts(x?)$/,
+                loader: 'ts-loader'
             },
             {
-                test: /\.tsx?$/,
-                loader: 'ts-loader',
-                exclude: 'node_modules'
-            },
+                test: /\.less$/,
+                loader: `style!css?modules&localIdentName=${CSS_MODULES_LOCAL_ID_NAME}!less`
+            }
         ],
         preLoaders: [
             {
-                test: /\.js$/,
-                loader: 'source-map-loader'
+                test: /\.less$/,
+                loader: 'typed-css-modules!less'
             }
         ]
     }

@@ -1,6 +1,7 @@
 {
   "name": "@rah-foundation/website",
   "dependencies": {
+    "lodash": "registry:npm/lodash#4.0.0+20160416211519",
     "react-router": "registry:npm/react-router#2.4.0+20160616150328",
     "webpack": "registry:npm/webpack#1.12.9+20160418172948"
   },

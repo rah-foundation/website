@@ -6,22 +6,36 @@ import {Router, match, RouterContext} from 'react-router';
 import * as Express from 'express';
 import * as webpack from 'webpack';
 const webpackDevMiddleware = require('webpack-dev-middleware');
+const lessParser = require('postcss-less').parse;
+const CssModulesRequireHook = require('css-modules-require-hook')
+import webpackConfig from './webpack.config';
+import {CSS_MODULES_LOCAL_ID_NAME} from './webpack.config'
+
+const _DEVELOPMENT_ = true;
+
+CssModulesRequireHook({
+    extensions: '.less',
+    generateScopedName: CSS_MODULES_LOCAL_ID_NAME,
+    processorOpts: {parser: lessParser}
+});
 
 import {routes} from './routes';
-
-import webpackConfig from './webpack.config';
 
 const PORT = process.env.PORT || 8088;
 
 const app = Express();
 
-app.use(webpackDevMiddleware(webpack(webpackConfig), {
-    noInfo: false,
-    publicPath: '/dist',
-    stats: {
-        colors: true
-    }
-}));
+if (_DEVELOPMENT_) {
+    app.use(webpackDevMiddleware(webpack(webpackConfig), {
+        noInfo: false,
+        publicPath: '/',
+        stats: {
+            colors: true
+        }
+    }));
+} else {
+    app.use(Express.static('dist'));
+}
 
 app.get('*', (req, res)=> {
 
@@ -39,12 +53,12 @@ app.get('*', (req, res)=> {
     });
 });
 
-function renderIndex(renderProps): string {
+function renderIndex(renderProps: Object): string {
     return `
     <html doctype='html'>
         <head>
             <title>Ctrl+S</title>
-            <script src='/dist/client.js' defer async></script>
+            <script src='/client.js' defer async></script>
         </head>
         <body>
             <div id="root">${renderToString(<RouterContext {...renderProps} />)}</div>
@@ -53,7 +67,7 @@ function renderIndex(renderProps): string {
     .trim();
 }
 
-app.listen(PORT, error => {
+app.listen(PORT, (error: Error) => {
     if (error) {
         return console.error(error);
     }
