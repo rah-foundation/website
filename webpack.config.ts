@@ -3,6 +3,7 @@ import {join as joinPath} from 'path';
 import {Configuration} from 'webpack';
 
 export const CSS_MODULES_LOCAL_ID_NAME = '[name]__[local]___[hash:base64:5]';
+const _DEVELOPMENT_ = true;
 
 const config: Configuration = {
     resolve: {
@@ -11,7 +12,7 @@ const config: Configuration = {
         modulesDirectories: ['node_modules']
     },
     entry: {
-        client: 'client'
+        client: ['client', _DEVELOPMENT_ ? 'webpack-hot-middleware/client' : null]
     },
     output: {
         path: joinPath(__dirname, 'dist'),
@@ -34,7 +35,12 @@ const config: Configuration = {
                 loader: 'typed-css-modules!less'
             }
         ]
-    }
+    },
+    plugins: [
+        new webpack.optimize.OccurenceOrderPlugin(true),
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoErrorsPlugin()
+    ]
 };
 
 export default config;

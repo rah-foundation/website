@@ -8,6 +8,7 @@ import * as webpack from 'webpack';
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const lessParser = require('postcss-less').parse;
 const CssModulesRequireHook = require('css-modules-require-hook')
+const webpackHotMiddleware = require("webpack-hot-middleware");
 import webpackConfig from './webpack.config';
 import {CSS_MODULES_LOCAL_ID_NAME} from './webpack.config'
 
@@ -26,13 +27,12 @@ const PORT = process.env.PORT || 8088;
 const app = Express();
 
 if (_DEVELOPMENT_) {
-    app.use(webpackDevMiddleware(webpack(webpackConfig), {
-        noInfo: false,
-        publicPath: '/',
-        stats: {
-            colors: true
-        }
+    const compiler = webpack(webpackConfig);
+    app.use(webpackDevMiddleware(compiler, {
+        noInfo: true,
+        publicPath: '/'
     }));
+    app.use(webpackHotMiddleware(compiler));
 } else {
     app.use(Express.static('dist'));
 }
