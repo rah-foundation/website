@@ -6,7 +6,7 @@ export const CSS_MODULES_LOCAL_ID_NAME = '[name]__[local]___[hash:base64:5]';
 
 const config: Configuration = {
     resolve: {
-        extensions: ['', '.js', '.css', '.ts', '.tsx'],
+        extensions: ['', '.js', '.less', '.ts', '.tsx'],
         root: __dirname,
         modulesDirectories: ['node_modules']
     },
@@ -24,14 +24,14 @@ const config: Configuration = {
                 loader: 'ts-loader'
             },
             {
-                test: /\.css$/,
-                loader: `style!css?modules&localIdentName=${CSS_MODULES_LOCAL_ID_NAME}`
+                test: /\.less$/,
+                loader: `style!css?modules&localIdentName=${CSS_MODULES_LOCAL_ID_NAME}!less`
             }
         ],
         preLoaders: [
             {
-                test: /\.css$/,
-                loaders: ['typed-css-modules']
+                test: /\.less$/,
+                loader: 'typed-css-modules!less'
             }
         ]
     }

@@ -6,13 +6,17 @@ import {Router, match, RouterContext} from 'react-router';
 import * as Express from 'express';
 import * as webpack from 'webpack';
 const webpackDevMiddleware = require('webpack-dev-middleware');
+const lessParser = require('postcss-less').parse;
+const CssModulesRequireHook = require('css-modules-require-hook')
 import webpackConfig from './webpack.config';
 import {CSS_MODULES_LOCAL_ID_NAME} from './webpack.config'
 
 const _DEVELOPMENT_ = true;
 
-require('css-modules-require-hook')({
-    generateScopedName: CSS_MODULES_LOCAL_ID_NAME
+CssModulesRequireHook({
+    extensions: '.less',
+    generateScopedName: CSS_MODULES_LOCAL_ID_NAME,
+    processorOpts: {parser: lessParser}
 });
 
 import {routes} from './routes';
