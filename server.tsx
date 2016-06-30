@@ -5,6 +5,10 @@ import {renderToString} from 'react-dom/server'
 import {Router, match, RouterContext} from 'react-router';
 import * as Express from 'express';
 import * as webpack from 'webpack';
+import * as i18next from 'i18next';
+import {LanguageDetector, handle as handleI18n} from 'i18next-express-middleware';
+import * as I18NextFileSystemBackend from 'i18next-node-fs-backend';
+const faLocale = require('./locales/fa.json');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const lessParser = require('postcss-less').parse;
 const CssModulesRequireHook = require('css-modules-require-hook')
@@ -20,6 +24,18 @@ CssModulesRequireHook({
     processorOpts: {parser: lessParser}
 });
 
+i18next
+    .use(LanguageDetector)
+    .use(I18NextFileSystemBackend)
+    .init({
+        lng: 'fa',
+        resources: {
+            fa: {
+                translation: faLocale
+            }
+        }
+    });
+
 import {routes} from './routes';
 
 const PORT = process.env.PORT || 8088;
@@ -30,12 +46,15 @@ if (_DEVELOPMENT_) {
     const compiler = webpack(webpackConfig);
     app.use(webpackDevMiddleware(compiler, {
         noInfo: true,
-        publicPath: '/'
+        publicPath: '/',
+        stats: 'errors-only'
     }));
     app.use(webpackHotMiddleware(compiler));
 } else {
     app.use(Express.static('dist'));
 }
+
+// app.use(handleI18n(i18next, ));
 
 app.get('*', (req, res)=> {
 
@@ -55,7 +74,7 @@ app.get('*', (req, res)=> {
 
 function renderIndex(renderProps: Object): string {
     return `
-    <html doctype='html'>
+    <html doctype='html' dir="rtl">
         <head>
             <title>Ctrl+S</title>
             <script src='/client.js' defer async></script>

@@ -8,6 +8,9 @@
   "globalDependencies": {
     "express": "registry:dt/express#4.0.0+20160317120654",
     "express-serve-static-core": "registry:dt/express-serve-static-core#0.0.0+20160602151406",
+    "i18next": "registry:dt/i18next#2.3.4+20160521153543",
+    "i18next-express-middleware": "registry:dt/i18next-express-middleware#0.0.0+20160319103745",
+    "i18next-node-fs-backend": "registry:dt/i18next-node-fs-backend#0.0.0+20160319103745",
     "mime": "registry:dt/mime#0.0.0+20160316155526",
     "node": "registry:dt/node#6.0.0+20160613154055",
     "react": "registry:dt/react#0.14.0+20160602151522",

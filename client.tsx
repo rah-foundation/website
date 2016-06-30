@@ -9,4 +9,4 @@ import {routes} from './routes';
 
 const root = document.getElementById('root');
 
-render(<Router history={browserHistory} routes={routes}></Router>, root);
+render(<Router history={browserHistory} routes={routes} />, root);

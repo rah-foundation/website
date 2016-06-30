@@ -1,0 +1,8 @@
+{
+  "resolution": "main",
+  "tree": {
+    "src": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/5bdb771c877c0455839c34e4190656764915e3a1/i18next-node-fs-backend/i18next-node-fs-backend.d.ts",
+    "raw": "registry:dt/i18next-node-fs-backend#0.0.0+20160319103745",
+    "typings": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/5bdb771c877c0455839c34e4190656764915e3a1/i18next-node-fs-backend/i18next-node-fs-backend.d.ts"
+  }
+}
