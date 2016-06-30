@@ -6,6 +6,11 @@ export const CSS_MODULES_LOCAL_ID_NAME = '[name]__[local]___[hash:base64:5]';
 const _DEVELOPMENT_ = true;
 
 const config: Configuration = {
+
+    devtool: 'source-maps',
+    node: {
+        fs: 'empty'
+    },
     resolve: {
         extensions: ['', '.js', '.less', '.ts', '.tsx'],
         root: __dirname,
@@ -26,13 +31,24 @@ const config: Configuration = {
             },
             {
                 test: /\.less$/,
-                loader: `style!css?modules&localIdentName=${CSS_MODULES_LOCAL_ID_NAME}!less`
+                loaders: [
+                    'style',
+                    `css?modules&localIdentName=${CSS_MODULES_LOCAL_ID_NAME}`,
+                    'less'
+                ]
+            },
+            {
+                test: /\.json/,
+                loader: 'json'
             }
         ],
         preLoaders: [
             {
                 test: /\.less$/,
-                loader: 'typed-css-modules!less'
+                loaders: [
+                    'typed-css-modules',
+                    'less'
+                ]
             }
         ]
     },

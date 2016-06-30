@@ -1,0 +1,8 @@
+{
+  "resolution": "main",
+  "tree": {
+    "src": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/4143c4ff6f587cd365b549c3a256ffbd7e469705/i18n-node/i18n-node.d.ts",
+    "raw": "registry:dt/i18n-node#0.0.0+20160521152545",
+    "typings": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/4143c4ff6f587cd365b549c3a256ffbd7e469705/i18n-node/i18n-node.d.ts"
+  }
+}
