@@ -8,7 +8,7 @@ import {t} from './translate';
 export const routes = [
     <Route path='/' component={App} >
         <IndexRoute component={Home} />
-        <Route path={t('faq')} component={FAQ} />
+        <Route path={encodeURI(t('faq'))} component={FAQ} />
     </Route>
 ];
 

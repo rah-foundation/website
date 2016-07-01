@@ -11,7 +11,7 @@ export default class Footer extends React.Component<{}, {}> {
                         <Link to='/'>{t('homePage')}</Link>
                     </li>
                     <li>
-                        <Link to={t('faq')}>{t('faq')}</Link>
+                        <Link to={encodeURIComponent(t('faq'))}>{t('faq')}</Link>
                     </li>
                 </ul>
             </footer>
