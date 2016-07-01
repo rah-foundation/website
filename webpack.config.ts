@@ -3,7 +3,7 @@ import {join as joinPath} from 'path';
 import {Configuration} from 'webpack';
 
 export const CSS_MODULES_LOCAL_ID_NAME = '[name]__[local]___[hash:base64:5]';
-const _DEVELOPMENT_ = true;
+const _DEVELOPMENT_ = process.env.NODE_ENV !== 'production';
 
 const config: Configuration = {
     devtool: 'source-map',

@@ -22,7 +22,7 @@ CssModulesRequireHook({
 import {routes} from './routes';
 
 const PORT = process.env.PORT || 8088;
-const _DEVELOPMENT_ = true;
+const _DEVELOPMENT_ = process.env.NODE_ENV !== 'production';
 
 const app = Express();
 
