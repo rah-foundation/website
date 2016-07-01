@@ -1,16 +1,17 @@
-/// <reference path="typings/index.d.ts" />
+/// <reference path="../typings/index.d.ts" />
 
 import * as React from 'react';
 import {renderToString} from 'react-dom/server'
 import {Router, match, RouterContext} from 'react-router';
 import * as Express from 'express';
 import * as webpack from 'webpack';
+import {t} from './translate';
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const lessParser = require('postcss-less').parse;
 const CssModulesRequireHook = require('css-modules-require-hook')
 const webpackHotMiddleware = require("webpack-hot-middleware");
-import webpackConfig from './webpack.config';
-import {CSS_MODULES_LOCAL_ID_NAME} from './webpack.config'
+import webpackConfig from '../webpack.config';
+import {CSS_MODULES_LOCAL_ID_NAME} from '../webpack.config'
 
 const _DEVELOPMENT_ = true;
 
@@ -55,7 +56,7 @@ app.get('*', (req, res)=> {
 
 function renderIndex(renderProps: Object): string {
     return `
-    <html doctype='html'>
+    <html doctype='html' dir="${t('dir')}">
         <head>
             <title>Ctrl+S</title>
             <script src='/client.js' defer async></script>

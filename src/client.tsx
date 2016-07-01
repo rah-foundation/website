@@ -1,4 +1,4 @@
-/// <reference path="typings/index.d.ts" />
+/// <reference path="../typings/index.d.ts" />
 
 import * as React from 'react';
 import {render} from 'react-dom';
@@ -9,4 +9,5 @@ import {routes} from './routes';
 
 const root = document.getElementById('root');
 
-render(<Router history={browserHistory} routes={routes}></Router>, root);
+render(<Router history={browserHistory} routes={routes} />, root);
+

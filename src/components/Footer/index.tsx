@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {Link} from 'react-router';
+import {t} from '../../translate';
 
 export default class Footer extends React.Component<{}, {}> {
     render() {
@@ -7,10 +8,10 @@ export default class Footer extends React.Component<{}, {}> {
             <footer>
                 <ul>
                     <li>
-                        <Link to='/'>{'Home'}</Link>
+                        <Link to='/'>{t('homePage')}</Link>
                     </li>
                     <li>
-                        <Link to='/faq'>{'FAQ'}</Link>
+                        <Link to={t('faq')}>{t('faq')}</Link>
                     </li>
                 </ul>
             </footer>

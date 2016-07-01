@@ -4,7 +4,7 @@
   "description": "Rah Foundation webstie ",
   "main": "server.tsx",
   "scripts": {
-    "start": "ts-node server.tsx",
+    "start": "ts-node src/server.tsx",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,6 +21,7 @@
     "css-loader": "^0.23.1",
     "css-modules-require-hook": "^4.0.1",
     "express": "^4.14.0",
+    "json-loader": "^0.5.4",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
     "lodash": "^4.13.1",
