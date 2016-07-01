@@ -6,6 +6,7 @@ export const CSS_MODULES_LOCAL_ID_NAME = '[name]__[local]___[hash:base64:5]';
 const _DEVELOPMENT_ = true;
 
 const config: Configuration = {
+    devtool: 'source-map',
     resolve: {
         extensions: ['', '.js', '.less', '.ts', '.tsx'],
         root: __dirname,
