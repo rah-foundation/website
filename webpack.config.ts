@@ -12,7 +12,8 @@ const config: Configuration = {
         modulesDirectories: ['node_modules']
     },
     entry: {
-        client: ['client', _DEVELOPMENT_ ? 'webpack-hot-middleware/client' : null]
+        client: ['src/client']
+            .concat(_DEVELOPMENT_ ? ['webpack-hot-middleware/client'] : [])
     },
     output: {
         path: joinPath(__dirname, 'dist'),
@@ -26,13 +27,24 @@ const config: Configuration = {
             },
             {
                 test: /\.less$/,
-                loader: `style!css?modules&localIdentName=${CSS_MODULES_LOCAL_ID_NAME}!less`
+                loaders: [
+                    'style',
+                    `css?modules&localIdentName=${CSS_MODULES_LOCAL_ID_NAME}`,
+                    'less'
+                ]
+            },
+            {
+                test: /\.json/,
+                loader: 'json'
             }
         ],
         preLoaders: [
             {
                 test: /\.less$/,
-                loader: 'typed-css-modules!less'
+                loaders: [
+                    'typed-css-modules',
+                    'less'
+                ]
             }
         ]
     },
