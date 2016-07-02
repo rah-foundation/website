@@ -68,6 +68,13 @@ const config: OurConfiguration = {
 
 if (!_DEVELOPMENT_) {
 
+    // Use CDN for libraries
+    config.externals = {
+        'react': 'React',
+        'react-router': 'ReactRouter',
+        'react-dom': 'ReactDOM'
+    };
+
     // Minify the JavaScript
     config.plugins.push(new webpack.optimize.UglifyJsPlugin({
         compress: {

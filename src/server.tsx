@@ -53,17 +53,36 @@ app.get('*', (req, res)=> {
 
 function renderIndex(renderProps: Object): string {
     let clinetJSFileName = 'client.js';
+    let cdnFiles = '';
 
     if (!_DEVELOPMENT_) {
+        const dependencies = require('../package.json').dependencies;
         clinetJSFileName = require('../dist/manifest.json')[clinetJSFileName];
+
+        cdnFiles = [{
+            name: 'react',
+            url: `https://cdnjs.cloudflare.com/ajax/libs/react/_VERSION_/react.min.js`
+        },{
+            name: 'react-dom',
+            url: `https://cdnjs.cloudflare.com/ajax/libs/react/_VERSION_/react-dom.min.js`
+        }, {
+            name: 'react-router',
+            url: 'https://cdnjs.cloudflare.com/ajax/libs/react-router/_VERSION_/ReactRouter.js'
+        }]
+        .map(lib => {
+            const url = lib.url.replace('_VERSION_', dependencies[lib.name].replace('^', '').replace('~', ''));
+            return `<script src="${url}" defer></script>`;
+        }).join('\n');
     }
+
     return `
     <html doctype='html' dir="${t('dir')}">
         <head>
             <title>${t('title')}</title>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width">
-            <script src='/${clinetJSFileName}' defer async></script>
+            ${cdnFiles}
+            <script src='/${clinetJSFileName}' defer></script>
         </head>
         <body>
             <div id="root">${renderToString(<RouterContext {...renderProps} />)}</div>
