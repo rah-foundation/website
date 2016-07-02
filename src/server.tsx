@@ -52,11 +52,18 @@ app.get('*', (req, res)=> {
 });
 
 function renderIndex(renderProps: Object): string {
+    let clinetJSFileName = 'client.js';
+
+    if (!_DEVELOPMENT_) {
+        clientInformation = require('../dist/manifest.json')[clinetJSFileName];
+    }
     return `
     <html doctype='html' dir="${t('dir')}">
         <head>
-            <title>Ctrl+S</title>
-            <script src='/client.js' defer async></script>
+            <title>${t('title')}</title>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width">
+            <script src='/${clinetJSFileName}' defer async></script>
         </head>
         <body>
             <div id="root">${renderToString(<RouterContext {...renderProps} />)}</div>

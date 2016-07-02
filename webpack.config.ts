@@ -88,6 +88,10 @@ if (!_DEVELOPMENT_) {
     //     )
     // });
     // config.plugins.push(ExtractTextPlugin('styles.css'));
+
+    // Add manifest
+    const ManifestPlugin = require('webpack-manifest-plugin');
+    config.plugins.push(new ManifestPlugin());
 }
 
 export default config;
