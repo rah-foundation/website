@@ -6,6 +6,7 @@
   "scripts": {
     "start": "ts-node src/server.tsx",
     "build": "NODE_ENV='production' webpack",
+    "deploy": "git checkout deploy && rm -rf dist/* && npm run build && git commit -am 'Build' && git push heroku deploy:master",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
