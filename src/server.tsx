@@ -55,7 +55,7 @@ function renderIndex(renderProps: Object): string {
     let clinetJSFileName = 'client.js';
 
     if (!_DEVELOPMENT_) {
-        clientInformation = require('../dist/manifest.json')[clinetJSFileName];
+        clinetJSFileName = require('../dist/manifest.json')[clinetJSFileName];
     }
     return `
     <html doctype='html' dir="${t('dir')}">
