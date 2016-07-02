@@ -1,11 +1,17 @@
 import * as webpack from 'webpack';
 import {join as joinPath} from 'path';
-import {Configuration} from 'webpack';
+import {Configuration, Plugin} from 'webpack';
+const precss = require('precss');
+const autoprefixer = require('autoprefixer');
 
 export const CSS_MODULES_LOCAL_ID_NAME = '[name]__[local]___[hash:base64:5]';
 const _DEVELOPMENT_ = process.env.NODE_ENV !== 'production';
 
-const config: Configuration = {
+interface OurConfiguration extends Configuration {
+    postcss: ()=> Object[]
+}
+
+const config: OurConfiguration = {
     devtool: 'source-map',
     resolve: {
         extensions: ['', '.js', '.less', '.ts', '.tsx'],
@@ -20,12 +26,11 @@ const config: Configuration = {
         path: joinPath(__dirname, 'dist'),
         filename: '[name].js'
     },
+    postcss() {
+        return [precss, autoprefixer];
+    },
     module: {
         loaders: [
-            {
-                test: /\.ts(x?)$/,
-                loader: 'ts-loader'
-            },
             {
                 test: /\.less$/,
                 loaders: [
@@ -33,6 +38,10 @@ const config: Configuration = {
                     `css?modules&localIdentName=${CSS_MODULES_LOCAL_ID_NAME}`,
                     'less'
                 ]
+            },
+            {
+                test: /\.ts(x?)$/,
+                loader: 'ts-loader'
             },
             {
                 test: /\.json/,
@@ -44,7 +53,8 @@ const config: Configuration = {
                 test: /\.less$/,
                 loaders: [
                     'typed-css-modules',
-                    'less'
+                    'less',
+                    'postcss'
                 ]
             }
         ]
@@ -55,5 +65,29 @@ const config: Configuration = {
         new webpack.NoErrorsPlugin()
     ]
 };
+
+if (!_DEVELOPMENT_) {
+
+    // Minify the JavaScript
+    config.plugins.push(new webpack.optimize.UglifyJsPlugin({
+        compress: {
+             warnings: false
+        }
+    }));
+    config.output.filename = '[name]-[hash:7].js';
+
+    // Extract CSS into a file (FIXME)
+    // const ExtractTextPlugin = require('extract-text-webpack-plugin');
+    // config.module.loaders.unshift();
+    // config.module.loaders.push({
+    //     test: /\.less$/,
+    //     loader: ExtractTextPlugin.extract(
+    //         'style',
+    //         `css?modules&localIdentName=${CSS_MODULES_LOCAL_ID_NAME}`,
+    //         'less'
+    //     )
+    // });
+    // config.plugins.push(ExtractTextPlugin('styles.css'));
+}
 
 export default config;
