@@ -7,19 +7,10 @@ import * as Express from 'express';
 import * as webpack from 'webpack';
 import {t} from './translate';
 const webpackDevMiddleware = require('webpack-dev-middleware');
-const lessParser = require('postcss-less').parse;
-const CssModulesRequireHook = require('css-modules-require-hook')
 const webpackHotMiddleware = require('webpack-hot-middleware');
 import webpackConfig from '../webpack.config';
-import {CSS_MODULES_LOCAL_ID_NAME} from '../webpack.config'
 
-// this configuration should happen before importing React routes
-CssModulesRequireHook({
-    extensions: '.less',
-    generateScopedName: CSS_MODULES_LOCAL_ID_NAME,
-    processorOpts: {parser: lessParser}
-});
-import {routes} from './routes';
+import * as routes from '../dist/routes.js';
 
 const PORT = process.env.PORT || 8088;
 const _DEVELOPMENT_ = process.env.NODE_ENV !== 'production';

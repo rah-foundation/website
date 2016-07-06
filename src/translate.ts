@@ -30,3 +30,10 @@ export function t(phrase: string): string {
 
     return translations[locale][phrase];
 }
+
+/*
+ * Tranlsate URLs to encoded URL
+*/
+export function tUrl(...chunks: string[]) {
+    return chunks.map((chunk: string) => encodeURIComponent(t(chunk))).join('/');
+}

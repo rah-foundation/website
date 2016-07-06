@@ -13,14 +13,16 @@ interface OurConfiguration extends Configuration {
 
 const config: OurConfiguration = {
     devtool: 'source-map',
+    target: 'node',
     resolve: {
-        extensions: ['', '.js', '.less', '.ts', '.tsx'],
+        extensions: ['', '.js', '.less', '.ts', '.tsx', '.png'],
         root: __dirname,
         modulesDirectories: ['node_modules']
     },
     entry: {
         client: ['src/client']
-            .concat(_DEVELOPMENT_ ? ['webpack-hot-middleware/client'] : [])
+            .concat(_DEVELOPMENT_ ? ['webpack-hot-middleware/client'] : []),
+        routes: ['src/routes']
     },
     output: {
         path: joinPath(__dirname, 'dist'),
@@ -46,6 +48,10 @@ const config: OurConfiguration = {
             {
                 test: /\.json/,
                 loader: 'json'
+            },
+            {
+                test: /\.png/,
+                loader: 'file'
             }
         ],
         preLoaders: [
