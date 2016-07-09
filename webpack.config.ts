@@ -20,9 +20,8 @@ const config: OurConfiguration = {
         modulesDirectories: ['node_modules']
     },
     entry: {
-        client: ['src/client']
-            .concat(_DEVELOPMENT_ ? ['webpack-hot-middleware/client'] : []),
-        routes: ['src/routes']
+        client: ['src/client'],
+        server: ['src/server']
     },
     output: {
         path: joinPath(__dirname, 'dist'),
@@ -73,6 +72,7 @@ const config: OurConfiguration = {
 };
 
 if (!_DEVELOPMENT_) {
+    config.entry.server.push('webpack-hot-middleware/client');
 
     // Use CDN for libraries
     config.externals = {
