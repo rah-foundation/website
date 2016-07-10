@@ -13,7 +13,6 @@ interface OurConfiguration extends Configuration {
 
 const config: OurConfiguration = {
     devtool: 'source-map',
-    target: 'node',
     resolve: {
         extensions: ['', '.js', '.less', '.ts', '.tsx', '.png'],
         root: __dirname,
@@ -21,7 +20,6 @@ const config: OurConfiguration = {
     },
     entry: {
         client: ['src/client'],
-        // server: ['src/server']
     },
     output: {
         path: joinPath(__dirname, 'dist'),
