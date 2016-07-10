@@ -21,7 +21,7 @@ const config: OurConfiguration = {
     },
     entry: {
         client: ['src/client'],
-        server: ['src/server']
+        // server: ['src/server']
     },
     output: {
         path: joinPath(__dirname, 'dist'),
