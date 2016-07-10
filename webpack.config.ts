@@ -72,8 +72,6 @@ const config: OurConfiguration = {
 };
 
 if (!_DEVELOPMENT_) {
-    config.entry.server.push('webpack-hot-middleware/client');
-
     // Use CDN for libraries
     config.externals = {
         'react': 'React',
@@ -105,6 +103,8 @@ if (!_DEVELOPMENT_) {
     // Add manifest
     const ManifestPlugin = require('webpack-manifest-plugin');
     config.plugins.push(new ManifestPlugin());
+} else {
+    (<any>config.entry).client.push('webpack-hot-middleware/client');
 }
 
 export default config;
