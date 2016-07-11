@@ -1,2 +1,2 @@
 language: node_js
-node:_js node # latest
+node_js: node # latest
