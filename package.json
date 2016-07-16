@@ -4,7 +4,7 @@
   "description": "Rah Foundation webstie ",
   "main": "server.tsx",
   "scripts": {
-    "start": "ts-node src/server.tsx",
+    "start": "node dist/server.js",
     "build": "NODE_ENV='production' webpack",
     "deploy": "git checkout deploy && git merge master --no-edit && rm -rf dist/* && npm run build && git add dist && git commit -am 'Build' && git push heroku deploy:master && git checkout -",
     "test": "webpack && webpack --config=webpack.config.server.ts"
@@ -51,5 +51,8 @@
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.12.0",
     "webpack-manifest-plugin": "^1.0.1"
+  },
+  "devDependencies": {
+    "webpack-node-externals": "^1.2.0"
   }
 }

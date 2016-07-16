@@ -1,8 +1,12 @@
 import * as webpack from 'webpack';
 import {join as joinPath} from 'path';
+import {clone} from 'lodash';
 import {Configuration, Plugin} from 'webpack';
 const precss = require('precss');
 const autoprefixer = require('autoprefixer');
+const ManifestPlugin = require('webpack-manifest-plugin');
+const nodeExternals = require('webpack-node-externals');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 export const CSS_MODULES_LOCAL_ID_NAME = '[name]__[local]___[hash:base64:5]';
 const _DEVELOPMENT_ = process.env.NODE_ENV !== 'production';
@@ -11,15 +15,15 @@ interface OurConfiguration extends Configuration {
     postcss: ()=> Object[]
 }
 
-const config: OurConfiguration = {
+const clientConfig: OurConfiguration = {
     devtool: 'source-map',
     resolve: {
-        extensions: ['', '.js', '.less', '.ts', '.tsx', '.png'],
+        extensions: ['', '.js', '.less', '.ts', '.tsx', '.png', '.json'],
         root: __dirname,
         modulesDirectories: ['node_modules']
     },
     entry: {
-        client: ['src/client'],
+        client: 'src/client'
     },
     output: {
         path: joinPath(__dirname, 'dist'),
@@ -65,44 +69,40 @@ const config: OurConfiguration = {
     plugins: [
         new webpack.optimize.OccurenceOrderPlugin(true),
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin()
+        new webpack.NoErrorsPlugin(),
+        new ManifestPlugin(),
+        // new ExtractTextPlugin('styles.css')
     ]
 };
 
 if (!_DEVELOPMENT_) {
     // Use CDN for libraries
-    config.externals = {
+    clientConfig.externals = {
         'react': 'React',
         'react-router': 'ReactRouter',
         'react-dom': 'ReactDOM'
     };
 
     // Minify the JavaScript
-    config.plugins.push(new webpack.optimize.UglifyJsPlugin({
+    clientConfig.plugins.push(new webpack.optimize.UglifyJsPlugin({
+        mangle: true,
         compress: {
              warnings: false
         }
     }));
-    config.output.filename = '[name]-[hash:7].js';
-
-    // Extract CSS into a file (FIXME)
-    // const ExtractTextPlugin = require('extract-text-webpack-plugin');
-    // config.module.loaders.unshift();
-    // config.module.loaders.push({
-    //     test: /\.less$/,
-    //     loader: ExtractTextPlugin.extract(
-    //         'style',
-    //         `css?modules&localIdentName=${CSS_MODULES_LOCAL_ID_NAME}`,
-    //         'less'
-    //     )
-    // });
-    // config.plugins.push(ExtractTextPlugin('styles.css'));
-
-    // Add manifest
-    const ManifestPlugin = require('webpack-manifest-plugin');
-    config.plugins.push(new ManifestPlugin());
-} else {
-    (<any>config.entry).client.push('webpack-hot-middleware/client');
+    clientConfig.output.filename = '[name]-[hash:7].js';
 }
 
-export default config;
+const serverConfig = clone(clientConfig);
+serverConfig.target = 'node';
+serverConfig.entry = {
+    server: 'src/server',
+};
+serverConfig.externals = [nodeExternals()];
+serverConfig.module.loaders.shift(); // remove browser CSS loader
+serverConfig.module.loaders.unshift({
+    test: /\.less$/,
+    loaders: [`css?modules&localIdentName=${CSS_MODULES_LOCAL_ID_NAME}`, 'less']
+});
+
+export default [clientConfig, serverConfig];
