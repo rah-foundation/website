@@ -48,7 +48,9 @@ const clientConfig: OurConfiguration = {
             },
             {
                 test: /\.less$/,
-                loader: ExtractTextPlugin.extract('css?modules&sourceMap!less?sourceMap')
+                loader: _DEVELOPMENT_ ?
+                    'style!css?modules&sourceMap!less?sourceMap' :
+                    ExtractTextPlugin.extract('css?modules&sourceMap!less?sourceMap')
             },
         ],
         preLoaders: [
