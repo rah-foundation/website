@@ -52,8 +52,8 @@ function renderIndex(renderProps: Object): string {
             <title>${t('title')}</title>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width">
-            ${cdnFiles}
             <link rel="stylesheet" href="styles.css" />
+            ${cdnFiles}
             <script src='client.js' defer></script>
         </head>
         <body>

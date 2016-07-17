@@ -53,11 +53,7 @@ const clientConfig: OurConfiguration = {
             },
             {
                 test: /\.less$/,
-                loaders: [
-                    'style',
-                    `css?modules`,
-                    'less'
-                ]
+                loader: ExtractTextPlugin.extract('css?modules!less')
             },
         ],
         preLoaders: [
@@ -76,7 +72,7 @@ const clientConfig: OurConfiguration = {
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
         new ManifestPlugin(),
-        // new ExtractTextPlugin('styles.css')
+        new ExtractTextPlugin('styles.css')
     ]
 };
 
