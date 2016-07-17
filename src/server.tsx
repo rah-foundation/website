@@ -5,17 +5,8 @@ import {renderToString} from 'react-dom/server'
 import {Router, match, RouterContext} from 'react-router';
 import * as Express from 'express';
 import * as webpack from 'webpack';
-import {t} from './translate';;
-const lessParser = require('postcss-less').parse;
-const CssModulesRequireHook = require('css-modules-require-hook')
-import {CSS_MODULES_LOCAL_ID_NAME} from '../webpack.config'
 
-// this configuration should happen before importing React routes
-CssModulesRequireHook({
-    extensions: '.less',
-    generateScopedName: CSS_MODULES_LOCAL_ID_NAME,
-    processorOpts: {parser: lessParser}
-});
+import {t} from './translate';;
 import {routes} from './routes';
 
 const app = Express();
@@ -37,7 +28,7 @@ app.get('*', (req, res)=> {
 function renderIndex(renderProps: Object): string {
     let clinetJSFileName = 'client.js';
     const dependencies = require('../package.json').dependencies;
-    clinetJSFileName = require('../dist/manifest.json')[clinetJSFileName];
+    // clinetJSFileName = require('../../dist/manifest.json')[clinetJSFileName];
 
     // TODO: use CDNize
     const cdnFiles = [{
@@ -62,7 +53,7 @@ function renderIndex(renderProps: Object): string {
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width">
             ${cdnFiles}
-            <script src='/${clinetJSFileName}' defer></script>
+            <script src='/client.js' defer></script>
         </head>
         <body>
             <div id="root">${renderToString(<RouterContext {...renderProps} />)}</div>
