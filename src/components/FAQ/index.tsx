@@ -8,6 +8,7 @@ export default class FAQ extends React.Component<{}, {}> {
         return (
             <div className={style.faq}>
                 <h1>{t('faq')}</h1>
+                <p>BYYYYYYi!!!!!!</p>
             </div>
         );
     }

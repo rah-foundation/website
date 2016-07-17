@@ -11,13 +11,16 @@ app.use(Express.static('dist'));
 app.get('*', handleGet);
 
 const PORT = process.env.PORT || 8088;
-app.listen(PORT, (error: Error) => {
-    if (error) {
-        return console.error(error);
-    }
 
-    console.info(`App is running at http://localhost:${PORT}`);
-});
+if (require.main === module) {
+    app.listen(PORT, (error: Error) => {
+        if (error) {
+            return console.error(error);
+        }
+
+        console.info(`App is running at http://localhost:${PORT}`);
+    });
+}
 
 // Exporting this function to be used in dev server
 export function handleGet (req: Express.Request, res: Express.Response) {
