@@ -87,7 +87,9 @@ if (!_DEVELOPMENT_) {
              warnings: false
         }
     }));
-    clientConfig.output.filename = '[name]-[hash:7].js';
+
+    // TODO: Figure out file name mangling that works in server and client
+    // clientConfig.output.filename = '[name]-[hash:7].js';
 }
 
 const serverConfig = cloneDeep(clientConfig);

@@ -28,7 +28,7 @@ require.extensions['.png'] = function requireImages(image: {filename: string}) {
 
 import webpackCofigs from '../webpack.config';
 import renderIndex from './index';
-import {handleGet} from './server';
+import {get as handleGet} from './controller';
 
 const PORT = process.env.PORT || 8088;
 const clientConfig = webpackCofigs[0];
