@@ -53,7 +53,7 @@ const clientConfig: OurConfiguration = {
             },
             {
                 test: /\.less$/,
-                loader: ExtractTextPlugin.extract('css?modules!less')
+                loader: ExtractTextPlugin.extract('css?modules&sourceMap!less?sourceMap')
             },
         ],
         preLoaders: [
@@ -96,7 +96,7 @@ serverConfig.externals = [nodeExternals()];
 serverConfig.module.loaders.pop(); // remove browser CSS loader
 serverConfig.module.loaders.push({
     test: /\.less$/,
-    loader: ExtractTextPlugin.extract('css?modules!less')
+    loader: ExtractTextPlugin.extract('css?modules&sourceMap!less?sourceMap')
 });
 serverConfig.plugins.push(new ExtractTextPlugin('styles.css'));
 
