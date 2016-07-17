@@ -22,11 +22,6 @@ const clientConfig: OurConfiguration = {
         root: __dirname,
         modulesDirectories: ['node_modules']
     },
-    externals: {
-        'react': 'React',
-        'react-router': 'ReactRouter',
-        'react-dom': 'ReactDOM'
-    },
     entry: {
         client: ['src/client']
     },
@@ -77,6 +72,12 @@ const clientConfig: OurConfiguration = {
 };
 
 if (!_DEVELOPMENT_) {
+    clientConfig.externals = {
+        'react': 'React',
+        'react-router': 'ReactRouter',
+        'react-dom': 'ReactDOM'
+    };
+
     // Minify the JavaScript
     clientConfig.plugins.push(new webpack.optimize.UglifyJsPlugin({
         mangle: true,

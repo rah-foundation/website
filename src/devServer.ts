@@ -33,6 +33,12 @@ import {handleGet} from './server';
 const PORT = process.env.PORT || 8088;
 const clientConfig = webpackCofigs[0];
 (<any>clientConfig.entry).client.push('webpack-hot-middleware/client');
+(<any>clientConfig.entry).client.push('webpack/hot/only-dev-server');
+clientConfig.module.loaders.shift();
+clientConfig.module.loaders.unshift({
+    test: /\.ts(x?)$/,
+    loaders: ['react-hot', 'ts']
+})
 const webpackStatsOptions = {
 	chunk: false,
 	chunkModules: false,
@@ -44,6 +50,7 @@ const webpackStatsOptions = {
 const app = Express();
 const compiler = webpack(clientConfig);
 app.use(webpackMiddleware(compiler, {
+    publicPath: clientConfig.output.publicPath,
     hot: true,
     historyApiFallback: true,
     status: webpackStatsOptions

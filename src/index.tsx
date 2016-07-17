@@ -4,6 +4,8 @@ import {RouterContext} from 'react-router';
 
 import {t} from './translate';
 
+const _DEVELOPMENT_ = process.env.NODE_ENV !== 'production';
+
 export default function renderIndex(renderProps: Object): string {
     const cdnScriptTags = getCDNScriptTags();
 
@@ -14,7 +16,7 @@ export default function renderIndex(renderProps: Object): string {
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width">
             <link rel="stylesheet" href="/styles.css" />
-            ${cdnScriptTags}
+            ${_DEVELOPMENT_ ? '' : cdnScriptTags}
             <script src='/client.js' defer></script>
         </head>
         <body>
