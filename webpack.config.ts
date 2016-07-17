@@ -1,6 +1,6 @@
 import * as webpack from 'webpack';
 import {join as joinPath} from 'path';
-import {clone} from 'lodash';
+import {cloneDeep} from 'lodash';
 import {Configuration, Plugin} from 'webpack';
 const precss = require('precss');
 const autoprefixer = require('autoprefixer');
@@ -91,7 +91,7 @@ if (!_DEVELOPMENT_) {
     clientConfig.output.filename = '[name]-[hash:7].js';
 }
 
-const serverConfig = clone(clientConfig);
+const serverConfig = cloneDeep(clientConfig);
 serverConfig.target = 'node';
 serverConfig.entry = {
     server: ['src/server']
@@ -100,7 +100,7 @@ serverConfig.externals = [nodeExternals()];
 serverConfig.module.loaders.pop(); // remove browser CSS loader
 serverConfig.module.loaders.push({
     test: /\.less$/,
-    loaders: [`css?modules`, 'less']
+    loader: 'css?modules!less'
 });
 
 export default [clientConfig, serverConfig];
