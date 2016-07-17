@@ -53,7 +53,8 @@ function renderIndex(renderProps: Object): string {
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width">
             ${cdnFiles}
-            <script src='/client.js' defer></script>
+            <link rel="stylesheet" href="styles.css" />
+            <script src='client.js' defer></script>
         </head>
         <body>
             <div id="root">${renderToString(<RouterContext {...renderProps} />)}</div>

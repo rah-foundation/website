@@ -66,7 +66,7 @@ const clientConfig: OurConfiguration = {
                 loaders: [
                     'typed-css-modules',
                     'less',
-                    // 'postcss'
+                    'postcss'
                 ]
             }
         ]
@@ -100,7 +100,8 @@ serverConfig.externals = [nodeExternals()];
 serverConfig.module.loaders.pop(); // remove browser CSS loader
 serverConfig.module.loaders.push({
     test: /\.less$/,
-    loader: 'css?modules!less'
+    loader: ExtractTextPlugin.extract('css?modules!less')
 });
+serverConfig.plugins.push(new ExtractTextPlugin('styles.css'));
 
 export default [clientConfig, serverConfig];
