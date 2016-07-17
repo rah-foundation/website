@@ -22,11 +22,6 @@ const clientConfig: OurConfiguration = {
         root: __dirname,
         modulesDirectories: ['node_modules']
     },
-    externals: {
-        'react': 'React',
-        'react-router': 'ReactRouter',
-        'react-dom': 'ReactDOM'
-    },
     entry: {
         client: ['src/client']
     },
@@ -53,7 +48,9 @@ const clientConfig: OurConfiguration = {
             },
             {
                 test: /\.less$/,
-                loader: ExtractTextPlugin.extract('css?modules&sourceMap!less?sourceMap')
+                loader: _DEVELOPMENT_ ?
+                    'style!css?modules&sourceMap!less?sourceMap' :
+                    ExtractTextPlugin.extract('css?modules&sourceMap!less?sourceMap')
             },
         ],
         preLoaders: [
@@ -77,6 +74,12 @@ const clientConfig: OurConfiguration = {
 };
 
 if (!_DEVELOPMENT_) {
+    clientConfig.externals = {
+        'react': 'React',
+        'react-router': 'ReactRouter',
+        'react-dom': 'ReactDOM'
+    };
+
     // Minify the JavaScript
     clientConfig.plugins.push(new webpack.optimize.UglifyJsPlugin({
         mangle: true,

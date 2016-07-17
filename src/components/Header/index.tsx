@@ -3,7 +3,7 @@ import {Link} from 'react-router';
 import {t, tUrl} from '../../translate';
 
 const logoImage = require('./images/logo.png');
-const style = require('./style.less');
+import * as style from './style.less';
 
 export default class Header extends React.Component<{}, {}> {
     render() {
