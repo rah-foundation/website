@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Link} from 'react-router';
-import {t} from '../../translate';
+import {t, tUrl} from '../../translate';
 
 export default class Footer extends React.Component<{}, {}> {
     render() {
@@ -11,7 +11,7 @@ export default class Footer extends React.Component<{}, {}> {
                         <Link to='/'>{t('homePage')}</Link>
                     </li>
                     <li>
-                        <Link to={encodeURIComponent(t('faq'))}>{t('faq')}</Link>
+                        <Link to={tUrl('faq')}>{t('faq')}</Link>
                     </li>
                 </ul>
             </footer>
