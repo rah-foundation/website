@@ -1,6 +1,9 @@
 {
   "name": "@rah-foundation/website",
   "dependencies": {
+    "bluebird": "registry:npm/bluebird#3.3.4+20160622205516",
+    "chai": "registry:npm/chai#3.5.0+20160415060238",
+    "enzyme": "registry:npm/enzyme#2.2.0+20160322031343",
     "lodash": "registry:npm/lodash#4.0.0+20160416211519",
     "react-router": "registry:npm/react-router#2.4.0+20160616150328",
     "webpack": "registry:npm/webpack#1.12.9+20160418172948"
@@ -8,7 +11,10 @@
   "globalDependencies": {
     "express": "registry:dt/express#4.0.0+20160317120654",
     "express-serve-static-core": "registry:dt/express-serve-static-core#0.0.0+20160602151406",
+    "karma": "registry:dt/karma#0.13.9+20160501125529",
+    "log4js": "registry:dt/log4js#0.0.0+20160608042355",
     "mime": "registry:dt/mime#0.0.0+20160316155526",
+    "mocha": "registry:dt/mocha#2.2.5+20160619032855",
     "node": "registry:dt/node#6.0.0+20160613154055",
     "react": "registry:dt/react#0.14.0+20160602151522",
     "serve-static": "registry:dt/serve-static#0.0.0+20160606155157"
