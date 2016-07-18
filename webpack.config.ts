@@ -8,7 +8,7 @@ const ManifestPlugin = require('webpack-manifest-plugin');
 const nodeExternals = require('webpack-node-externals');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-export const CSS_MODULES_LOCAL_ID_NAME = '[name]__[local]___[hash:base64:5]';
+export const CSS_MODULES_LOCAL_ID_NAME = '[local]___[hash:base64:7]';
 const _DEVELOPMENT_ = process.env.NODE_ENV !== 'production';
 
 interface OurConfiguration extends Configuration {
@@ -49,8 +49,8 @@ const clientConfig: OurConfiguration = {
             {
                 test: /\.less$/,
                 loader: _DEVELOPMENT_ ?
-                    'style!css?modules&sourceMap!less?sourceMap' :
-                    ExtractTextPlugin.extract('css?modules&sourceMap!less?sourceMap')
+                    `style!css?modules&sourceMap&localIdentName=${CSS_MODULES_LOCAL_ID_NAME}!less?sourceMap` :
+                    ExtractTextPlugin.extract(`css?modules&sourceMap&localIdentName=${CSS_MODULES_LOCAL_ID_NAME}!less?sourceMap`)
             },
         ],
         preLoaders: [
@@ -104,7 +104,7 @@ serverConfig.externals = [nodeExternals()];
 serverConfig.module.loaders.pop(); // remove browser CSS loader
 serverConfig.module.loaders.push({
     test: /\.less$/,
-    loader: ExtractTextPlugin.extract('css?modules&sourceMap!less?sourceMap')
+    loader: ExtractTextPlugin.extract(`css?modules&sourceMap&localIdentName=${CSS_MODULES_LOCAL_ID_NAME}!less?sourceMap`)
 });
 serverConfig.plugins.push(new ExtractTextPlugin('styles.css'));
 

@@ -8,11 +8,13 @@ const webpackHotMiddleware = require('webpack-hot-middleware');
 const lessParser = require('postcss-less').parse;
 const CssModulesRequireHook = require('css-modules-require-hook')
 const manifest = require('../dist/manifest.json');
+import {CSS_MODULES_LOCAL_ID_NAME} from '../webpack.config';
 
 // path require images
 CssModulesRequireHook({
      extensions: '.less',
-     processorOpts: {parser: lessParser}
+     processorOpts: {parser: lessParser},
+     generateScopedName: CSS_MODULES_LOCAL_ID_NAME
 });
 
 // patch image extensions
