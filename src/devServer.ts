@@ -42,11 +42,20 @@ clientConfig.module.loaders.unshift({
     loaders: ['react-hot', 'ts']
 })
 const webpackStatsOptions = {
-	chunk: false,
-	chunkModules: false,
-	modules: false,
-	source: false,
-	chunkOrigins: false
+    colors: true,
+    hash: false,
+    version: false,
+    timings: false,
+    assets: false,
+    chunks: false,
+    chunkModules: false,
+    modules: false,
+    children: false,
+    cached: false,
+    reasons: false,
+    source: false,
+    errorDetails: true,
+    chunkOrigins: false
 };
 
 const app = Express();
@@ -55,7 +64,7 @@ app.use(webpackMiddleware(compiler, {
     publicPath: clientConfig.output.publicPath,
     hot: true,
     historyApiFallback: true,
-    status: webpackStatsOptions
+    stats: webpackStatsOptions
 }));
 app.use(webpackHotMiddleware(compiler));
 
@@ -64,5 +73,11 @@ app.get('*', handleGet);
 app.listen(PORT, (error: Error) => {
     if (error) throw error;
 
-    console.log('Development server with [HMR] started at port', PORT);
+    console.log(`
+    ╔══════════════════════════════════════════════════════════════════════════╗
+    ║                                                                          ║
+    ║    Development server with [HMR] started at http://localhost:${PORT}        ║
+    ║                                                                          ║
+    ╚══════════════════════════════════════════════════════════════════════════╝
+    `);
 });
