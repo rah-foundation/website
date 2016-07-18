@@ -9,6 +9,7 @@
     "build": "NODE_ENV='production' webpack",
     "deploy": "git checkout deploy && git rebase -Xtheirs master && rm -f .gitignore && rm -rf dist/* && npm run build && git add dist && git commit -am 'Build' && git push -f heroku deploy:master && git checkout -",
     "test": "npm run unit-test",
+    "preunit-test": "webpack",
     "unit-test": "ts-node ./node_modules/.bin/karma start karma.config.ts --single-run"
   },
   "repository": {
