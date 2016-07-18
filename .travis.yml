@@ -1,3 +1,4 @@
+sudo: required # to make Chrome available
 language: node_js
 node_js: node # latest
 before_script:
