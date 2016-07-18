@@ -18,12 +18,12 @@ CssModulesRequireHook({
 });
 
 // patch image extensions
-require.extensions['.png'] = function requireImages(image: {filename: string}) {
+require.extensions['.png'] = function requireImages(module: any, filename: string) {
     // TODO: FIXME: this is not working and requireing images is returning {}
     // TODO: filenames can colide, if this issue is solved in manifest plugin we
     //       can use full paths to fix it:
     //       https://github.com/danethurber/webpack-manifest-plugin/issues/23
-    const imageFileName = image.filename.substring(image.filename.lastIndexOf('/') + 1);
+    const imageFileName = filename.substring(filename.lastIndexOf('/') + 1);
     const result = manifest[imageFileName];
     return result;
 }
