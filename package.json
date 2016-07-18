@@ -10,7 +10,10 @@
     "deploy": "git checkout deploy && git rebase -Xtheirs master && rm -f .gitignore && rm -rf dist/* && npm run build && git add dist && git commit -am 'Build' && git push -f heroku deploy:master && git checkout -",
     "test": "npm run unit-test",
     "preunit-test": "webpack",
-    "unit-test": "ts-node ./node_modules/.bin/karma start karma.config.ts --single-run"
+    "unit-test": "ts-node ./node_modules/.bin/karma start karma.config.ts --single-run",
+    "pree2e-test": "webpack && node dist/server.js &",
+    "e2e-test": "ts-node ./node_modules/.bin/wdio wdio.conf.ts",
+    "poste2e-test": "kill $(ps aux | grep '[d]ist/server.js' | awk '{print $2}')"
   },
   "repository": {
     "type": "git",
@@ -60,6 +63,10 @@
     "typescript": "^1.8.10",
     "typings": "^1.3.1",
     "url-loader": "^0.5.7",
+    "wdio-mocha-framework": "^0.3.5",
+    "wdio-selenium-standalone-service": "0.0.5",
+    "wdio-spec-reporter": "0.0.2",
+    "webdriverio": "^4.2.1",
     "webpack": "^1.13.1",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.12.1",

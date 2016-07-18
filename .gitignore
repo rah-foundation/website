@@ -1,5 +1,7 @@
 node_modules
+*.jar
 *.log
 *.DS_Store
 dist/
+errorShots
 *.less.d.ts
