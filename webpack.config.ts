@@ -8,6 +8,7 @@ const ManifestPlugin = require('webpack-manifest-plugin');
 const nodeExternals = require('webpack-node-externals');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
+const FONT_REGEX = /\.(ttf|eot|svg|woff|woff2|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/;
 export const CSS_MODULES_LOCAL_ID_NAME = '[local]___[hash:base64:7]';
 const _DEVELOPMENT_ = process.env.NODE_ENV !== 'production';
 
@@ -41,6 +42,10 @@ const clientConfig: OurConfiguration = {
             {
                 test: /\.json/,
                 loader: 'json'
+            },
+            {
+                test: FONT_REGEX,
+                loader: 'file'
             },
             {
                 test: /\.png/,
