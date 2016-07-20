@@ -12,7 +12,7 @@
     "test": "npm run unit-test && npm run e2e-test",
     "preunit-test": "webpack",
     "unit-test": "ts-node ./node_modules/.bin/karma start karma.config.ts --single-run",
-    "pree2e-test": "npm run build && node dist/server.js &",
+    "pree2e-test": "npm start > /dev/null &",
     "e2e-test": "ts-node ./node_modules/.bin/wdio wdio.conf.ts",
     "poste2e-test": "kill $(ps aux | grep '[d]ist/server.js' | awk '{print $2}')"
   },
