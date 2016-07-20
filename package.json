@@ -4,6 +4,7 @@
   "description": "Rah Foundation webstie ",
   "main": "server.tsx",
   "scripts": {
+    "prestart": "npm run build",
     "start": "node dist/server.js",
     "watch": "ts-node src/devServer.ts",
     "build": "NODE_ENV='production' webpack",

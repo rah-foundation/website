@@ -109,7 +109,9 @@ serverConfig.externals = [nodeExternals()];
 serverConfig.module.loaders.pop(); // remove browser CSS loader
 serverConfig.module.loaders.push({
     test: /\.less$/,
-    loader: ExtractTextPlugin.extract(`css?modules&sourceMap&localIdentName=${CSS_MODULES_LOCAL_ID_NAME}!less?sourceMap`)
+    loader: ExtractTextPlugin.extract(
+        `css?modules&sourceMap&localIdentName=${CSS_MODULES_LOCAL_ID_NAME}!less?sourceMap`
+    )
 });
 serverConfig.plugins.push(new ExtractTextPlugin('styles.css'));
 

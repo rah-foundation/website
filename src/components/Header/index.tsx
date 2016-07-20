@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Link} from 'react-router';
 import {t, tUrl} from '../../translate';
 
-import * as style from './style.less';
+const style = require('./style.less');
 
 export default class Header extends React.Component<{}, {}> {
     render() {
