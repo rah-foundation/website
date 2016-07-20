@@ -1,3 +1,5 @@
+const isCI = require('is-ci')
+
 exports.config = {
 
     //
@@ -44,7 +46,7 @@ exports.config = {
         // 5 instance gets started at a time.
         maxInstances: 5,
         //
-        browserName: 'chrome'
+        browserName: isCI ? 'firefox' : 'chrome'
     }],
     //
     // ===================
