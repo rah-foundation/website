@@ -54,8 +54,8 @@ const clientConfig: OurConfiguration = {
             {
                 test: /\.less$/,
                 loader: _DEVELOPMENT_ ?
-                    `style!css?modules&sourceMap&localIdentName=${CSS_MODULES_LOCAL_ID_NAME}!less?sourceMap` :
-                    ExtractTextPlugin.extract(`css?modules&sourceMap&localIdentName=${CSS_MODULES_LOCAL_ID_NAME}!less?sourceMap`)
+                    `style!css?modules&localIdentName=${CSS_MODULES_LOCAL_ID_NAME}!less?sourceMap` :
+                    ExtractTextPlugin.extract(`css?modules&localIdentName=${CSS_MODULES_LOCAL_ID_NAME}!less?sourceMap`)
             },
         ],
         preLoaders: [
