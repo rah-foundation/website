@@ -48,14 +48,18 @@ const clientConfig: OurConfiguration = {
                 loader: 'file'
             },
             {
-                test: /\.png/,
+                test: /\.svg/,
+                loader: 'file'
+            },
+            {
+                test: /\.(png)/,
                 loader: 'file'
             },
             {
                 test: /\.less$/,
                 loader: _DEVELOPMENT_ ?
-                    `style!css?modules&localIdentName=${CSS_MODULES_LOCAL_ID_NAME}!less?sourceMap` :
-                    ExtractTextPlugin.extract(`css?modules&localIdentName=${CSS_MODULES_LOCAL_ID_NAME}!less?sourceMap`)
+                    `style!css?modules&localIdentName=${CSS_MODULES_LOCAL_ID_NAME}!less?sourceMap!postcss` :
+                    ExtractTextPlugin.extract(`css?modules&localIdentName=${CSS_MODULES_LOCAL_ID_NAME}!less?sourceMap!postcss`)
             },
         ],
         preLoaders: [
@@ -63,8 +67,7 @@ const clientConfig: OurConfiguration = {
                 test: /\.less$/,
                 loaders: [
                     'typed-css-modules',
-                    'less',
-                    'postcss'
+                    'less'
                 ]
             }
         ]

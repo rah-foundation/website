@@ -1,22 +1,48 @@
+@haader-green: #58cbb4;
 
 .header {
     font-family: 'Parastoo', sans-serif;
     font-weight: normal;
-    background-color: #58cbb4;
-    color: #fff;
+    background-color: @haader-green;
 
-    .logo {
-        background-image: url('../Header/images/logo.png');
-        background-size: contain;
-        width: 300px;
-        height: 300px;
+    .top {
+        height: 50px;
+        display: flex;
+
+        .hamburger {
+            width: 40px;
+            height: 32px;
+            margin-top: 9px;
+            cursor: pointer;
+        }
+
+        .logo {
+            @size: 3em;
+            background-image: url('../Header/images/logo.png');
+            background-size: contain;
+            width: @size;
+            height: @size;
+            position: absolute;
+            left: 50%;
+            margin-left: @size / -2;
+        }
     }
 
+
     .menuItems {
-        li a {
-            font-weight: bold;
-            text-decoration: none;
-            font-size: 3em;
+        height: 0;
+
+        &.menuItemsOpen {
+            height: auto;
+        }
+
+        li {
+            display: block;
+            padding: 0.5em .25em;
+            a {
+                text-decoration: none;
+                color: white;
+            }
         }
     }
 }
