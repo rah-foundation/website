@@ -1,3 +1,34 @@
 .footer {
+    @footer-bg: #4a515a;
     font-family: 'Nika';
+    background-color: @footer-bg;
+    padding: 1em;
+
+    &, a {
+        color: white;
+    }
+    a {
+        text-decoration: none;
+    }
+
+    //TODO: lots of styling fixes...
+    .columns {
+        display: flex;
+        justify-content: space-between;
+        @media display and (max-width: 400px) {
+            display: block;
+        }
+    }
+
+    .column {
+        h3 {
+            font-family: Parastoo;
+            font-weight: bold;
+            margin: .25em;
+        }
+        li a {
+            display: block;
+            padding: .25em 0;
+        }
+    }
 }
