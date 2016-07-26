@@ -17,6 +17,7 @@ interface OurConfiguration extends Configuration {
 }
 
 const clientConfig: OurConfiguration = {
+    bail: true,
     devtool: 'source-map',
     resolve: {
         extensions: ['', '.js', '.less', '.ts', '.tsx', '.png', '.json'],
@@ -28,7 +29,9 @@ const clientConfig: OurConfiguration = {
     },
     output: {
         path: joinPath(__dirname, 'dist'),
-        filename: '[name].js'
+        publicPath: '/public/',
+        filename: '[name].js',
+        pathinfo: true
     },
     postcss() {
         return [precss, autoprefixer];
@@ -48,12 +51,12 @@ const clientConfig: OurConfiguration = {
                 loader: 'file'
             },
             {
-                test: /\.svg/,
-                loader: 'file'
+                test: /\.svg(\?.*)?$/,
+                loader: 'url?limit=10000&mimetype=image/svg+xml&name=[hash].[ext]'
             },
             {
-                test: /\.(png)/,
-                loader: 'file'
+                test: /\.(jpe?g|png|gif)$/i,
+                loader: 'url?limit=1000&name=[hash].[ext]'
             },
             {
                 test: /\.less$/,

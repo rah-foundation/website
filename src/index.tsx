@@ -17,7 +17,7 @@ export default function renderIndex(renderProps: Object): string {
             <meta name="viewport" content="width=device-width">
             ${_DEVELOPMENT_ ? '' : '<link rel="stylesheet" href="/styles.css" />'}
             ${_DEVELOPMENT_ ? '' : cdnScriptTags}
-            <script src='/client.js' defer></script>
+            <script src='/public/client.js' defer></script>
         </head>
         <body>
             <div id="root">${renderToString(<RouterContext {...renderProps} />)}</div>

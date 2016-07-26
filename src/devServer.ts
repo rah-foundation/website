@@ -9,6 +9,7 @@ const lessParser = require('postcss-less').parse;
 const CssModulesRequireHook = require('css-modules-require-hook')
 const manifest = require('../dist/manifest.json');
 import {CSS_MODULES_LOCAL_ID_NAME} from '../webpack.config';
+import {join, basename} from 'path';
 
 // path require images
 CssModulesRequireHook({
@@ -18,14 +19,22 @@ CssModulesRequireHook({
 });
 
 // patch image extensions
-require.extensions['.png'] = function requireImages(module: any, filename: string) {
-    // TODO: FIXME: this is not working and requireing images is returning {}
+require.extensions['.png'] = requireImages;
+require.extensions['.svg'] = requireImages;
+require.extensions['.jpg'] = requireImages;
+require.extensions['.jpeg'] = requireImages;
+require.extensions['.gif'] = requireImages;
+function requireImages(module: any, filename: string) {
     // TODO: filenames can colide, if this issue is solved in manifest plugin we
     //       can use full paths to fix it:
     //       https://github.com/danethurber/webpack-manifest-plugin/issues/23
-    const imageFileName = filename.substring(filename.lastIndexOf('/') + 1);
-    const result = manifest[imageFileName];
-    return result;
+    const result = manifest[basename(filename)];
+    if (!result) {
+        throw new Error(`Could not find ${filename} in manifest.
+        manifest content: ${JSON.stringify(manifest, null, 2)}`);
+    }
+    module.exports = join('/public', result);
+    return module;
 }
 
 import webpackCofigs from '../webpack.config';
@@ -34,7 +43,7 @@ import {get as handleGet} from './controller';
 
 const PORT = process.env.PORT || 8088;
 const clientConfig = webpackCofigs[0];
-(<any>clientConfig.entry).client.push('webpack-hot-middleware/client');
+(<any>clientConfig.entry).client.push('webpack-hot-middleware/client?reload=true');
 (<any>clientConfig.entry).client.push('webpack/hot/only-dev-server');
 clientConfig.module.loaders.shift();
 clientConfig.module.loaders.unshift({
