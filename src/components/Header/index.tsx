@@ -38,27 +38,28 @@ export default class Header extends React.Component<{}, HeaderState> {
                             />
                         </svg>
                     </div>
-                    <div className={style.logo} alt={t('title')}></div>
+                    <Link to='/'>
+                        <div className={style.logo} alt={t('title')}></div>
+                    </Link>
                 </div>
                 <nav>
                     <ul className={classnames(style.menuItems, this.state.hamburgerMenuIsOpen ? style.menuItemsOpen : null)}>
                         <li>
-                            <a href={tUrl('everything at a glance')}>
+                            <Link to={tUrl('everything at a glance')}>
                                 {t('everything at a glance')}
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a href={tUrl('infectious diseases')}>
+                            <Link to={tUrl('infectious diseases')}>
                                 {t('infectious diseases')}
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a href={tUrl('events')}>
+                            <Link to={tUrl('events')}>
                                 {t('events')}
-                            </a>
+                            </Link>
                         </li>
                     </ul>
-
                 </nav>
             </header>
         );
