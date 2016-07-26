@@ -1,4 +1,4 @@
-import {delay} from 'q';
+const delay = require('q').delay;
 const isCI = require('is-ci');
 
 exports.config = {
