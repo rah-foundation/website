@@ -1,4 +1,5 @@
-const isCI = require('is-ci')
+const delay = require('q').delay;
+const isCI = require('is-ci');
 
 exports.config = {
 
@@ -136,8 +137,11 @@ exports.config = {
     // resolved to continue.
     //
     // Gets executed once before all workers get launched.
-    // onPrepare: function (config, capabilities) {
-    // },
+    onPrepare: function () {
+        if (isCI) {
+            return delay(5 * 1000);
+        }
+    },
     //
     // Gets executed before test execution begins. At this point you can access all global
     // variables, such as `browser`. It is the perfect place to define custom commands.

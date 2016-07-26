@@ -74,10 +74,11 @@ app.listen(PORT, (error: Error) => {
     if (error) throw error;
 
     console.log(`
-    ╔══════════════════════════════════════════════════════════════════════════╗
-    ║                                                                          ║
-    ║    Development server with [HMR] started at http://localhost:${PORT}        ║
-    ║                                                                          ║
-    ╚══════════════════════════════════════════════════════════════════════════╝
+    ╔═══════════════════════════════════════╗
+    ║                                       ║
+    ║ Development server with [HMR] started ║
+    ║ Visit http://localhost:${PORT}           ║
+    ║                                       ║
+    ╚═══════════════════════════════════════╝
     `);
 });

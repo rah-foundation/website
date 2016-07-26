@@ -4,6 +4,7 @@
   "description": "Rah Foundation webstie ",
   "main": "server.tsx",
   "scripts": {
+    "prestart": "npm run build",
     "start": "node dist/server.js",
     "watch": "ts-node src/devServer.ts",
     "build": "NODE_ENV='production' webpack",
@@ -11,7 +12,7 @@
     "test": "npm run unit-test && npm run e2e-test",
     "preunit-test": "webpack",
     "unit-test": "ts-node ./node_modules/.bin/karma start karma.config.ts --single-run",
-    "pree2e-test": "npm run build && node dist/server.js &",
+    "pree2e-test": "npm start > /dev/null &",
     "e2e-test": "ts-node ./node_modules/.bin/wdio wdio.conf.ts",
     "poste2e-test": "kill $(ps aux | grep '[d]ist/server.js' | awk '{print $2}')"
   },
@@ -26,6 +27,7 @@
   },
   "homepage": "https://github.com/rah-foundation/website#readme",
   "dependencies": {
+    "classnames": "^2.2.5",
     "express": "^4.14.0",
     "lodash": "^4.13.1",
     "react": "^15.2.0",
@@ -53,10 +55,12 @@
     "postcss-less": "^0.13.0",
     "postcss-loader": "^0.9.1",
     "precss": "^1.4.0",
+    "q": "^1.4.1",
     "react-addons-test-utils": "^15.2.1",
     "react-hot-loader": "^1.3.0",
     "source-map-loader": "^0.1.5",
     "style-loader": "^0.13.1",
+    "svg-url-loader": "^1.0.3",
     "ts-loader": "^0.8.2",
     "ts-node": "^0.9.3",
     "typed-css-modules": "^0.1.10",

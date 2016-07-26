@@ -8,6 +8,7 @@ const ManifestPlugin = require('webpack-manifest-plugin');
 const nodeExternals = require('webpack-node-externals');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
+const FONT_REGEX = /\.(ttf|eot|svg|woff|woff2|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/;
 export const CSS_MODULES_LOCAL_ID_NAME = '[local]___[hash:base64:7]';
 const _DEVELOPMENT_ = process.env.NODE_ENV !== 'production';
 
@@ -43,14 +44,22 @@ const clientConfig: OurConfiguration = {
                 loader: 'json'
             },
             {
-                test: /\.png/,
+                test: FONT_REGEX,
+                loader: 'file'
+            },
+            {
+                test: /\.svg/,
+                loader: 'file'
+            },
+            {
+                test: /\.(png)/,
                 loader: 'file'
             },
             {
                 test: /\.less$/,
                 loader: _DEVELOPMENT_ ?
-                    `style!css?modules&sourceMap&localIdentName=${CSS_MODULES_LOCAL_ID_NAME}!less?sourceMap` :
-                    ExtractTextPlugin.extract(`css?modules&sourceMap&localIdentName=${CSS_MODULES_LOCAL_ID_NAME}!less?sourceMap`)
+                    `style!css?modules&localIdentName=${CSS_MODULES_LOCAL_ID_NAME}!less?sourceMap!postcss` :
+                    ExtractTextPlugin.extract(`css?modules&localIdentName=${CSS_MODULES_LOCAL_ID_NAME}!less?sourceMap!postcss`)
             },
         ],
         preLoaders: [
@@ -58,8 +67,7 @@ const clientConfig: OurConfiguration = {
                 test: /\.less$/,
                 loaders: [
                     'typed-css-modules',
-                    'less',
-                    'postcss'
+                    'less'
                 ]
             }
         ]
@@ -104,7 +112,9 @@ serverConfig.externals = [nodeExternals()];
 serverConfig.module.loaders.pop(); // remove browser CSS loader
 serverConfig.module.loaders.push({
     test: /\.less$/,
-    loader: ExtractTextPlugin.extract(`css?modules&sourceMap&localIdentName=${CSS_MODULES_LOCAL_ID_NAME}!less?sourceMap`)
+    loader: ExtractTextPlugin.extract(
+        `css?modules&sourceMap&localIdentName=${CSS_MODULES_LOCAL_ID_NAME}!less?sourceMap`
+    )
 });
 serverConfig.plugins.push(new ExtractTextPlugin('styles.css'));
 
