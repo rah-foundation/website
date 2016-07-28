@@ -7,4 +7,9 @@ describe('webdriver.io page', () => {
         const title = browser.getTitle();
         expect(title).to.equal(t('title'));
     });
+
+    it('should not have any browser errors', () => {
+        const logs = browser.log('browser').value;
+        expect(logs).to.be.empty;
+    });
 });

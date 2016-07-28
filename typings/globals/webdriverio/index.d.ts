@@ -1030,6 +1030,11 @@ declare namespace WebdriverIO {
         options: Options;
     }
 
+    // Value
+    export interface Client<T> {
+        value: RawResult<T>
+    }
+
     export type DesiredCapabilities = any;
 
     export interface RemoteOptions {
