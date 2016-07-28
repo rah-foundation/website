@@ -18,6 +18,7 @@ interface OurConfiguration extends Configuration {
 
 const clientConfig: OurConfiguration = {
     bail: true,
+    debug: true,
     devtool: 'source-map',
     resolve: {
         extensions: ['', '.js', '.less', '.ts', '.tsx', '.png', '.json'],
@@ -29,7 +30,7 @@ const clientConfig: OurConfiguration = {
     },
     output: {
         path: joinPath(__dirname, 'dist'),
-        publicPath: '/public/',
+        publicPath: '/',
         filename: '[name].js',
         pathinfo: true
     },
@@ -88,6 +89,8 @@ const clientConfig: OurConfiguration = {
 };
 
 if (!_DEVELOPMENT_) {
+    clientConfig.devtool = 'cheap-source-map';
+    clientConfig.debug = false;
     clientConfig.externals = {
         'react': 'React',
         'react-router': 'ReactRouter',

@@ -10,6 +10,8 @@ describe('webdriver.io page', () => {
 
     it('should not have any browser errors', () => {
         const logs = browser.log('browser').value;
-        expect(logs).to.be.empty;
+
+        // comparing strings for a more verbose output
+        expect(JSON.stringify(logs, null, 4)).to.equal('[]');
     });
 });
