@@ -7,6 +7,7 @@ const autoprefixer = require('autoprefixer');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const nodeExternals = require('webpack-node-externals');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 const FONT_REGEX = /\.(ttf|eot|svg|woff|woff2|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/;
 export const CSS_MODULES_LOCAL_ID_NAME = '[local]___[hash:base64:7]';
@@ -84,6 +85,17 @@ const clientConfig: OurConfiguration = {
         new ExtractTextPlugin('styles.css'),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+        }),
+        new FaviconsWebpackPlugin({
+            logo: 'src/components/App/images/favicon.png',
+            emitStats: true,
+            statsFilename: 'icons.json',
+            icons: {
+                android: false,
+                appleIcon: false,
+                appleStartup: false,
+                favicons: true,
+            }
         })
     ]
 };

@@ -30,7 +30,7 @@ CssModulesRequireHook({
             throw new Error(`Could not find ${filename} in manifest.
             manifest content: ${JSON.stringify(manifest, null, 2)}`);
         }
-        module.exports = join('/public', result);
+        module.exports = join('/', result);
         return module;
     };
 });
