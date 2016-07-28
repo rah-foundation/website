@@ -6,7 +6,7 @@
   "scripts": {
     "prestart": "npm run build",
     "start": "node dist/server.js",
-    "watch": "ts-node --cache-directory=./ts-node-cache src/devServer.ts",
+    "watch": "ts-node src/devServer.ts",
     "build": "NODE_ENV='production' webpack",
     "deploy": "./deploy.sh",
     "test": "npm run unit-test && npm run e2e-test",
