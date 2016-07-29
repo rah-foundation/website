@@ -1,8 +1,6 @@
 import {Config as KarmaConfig, ConfigOptions} from 'karma';
 import {Configuration as WebpackConfig} from 'webpack';
-import webpackConfigs from './webpack.config';
-
-const clientConfig = webpackConfigs[0];
+import clientConfig from './client.webpack.config';
 
 // Enzyme externals
 clientConfig.externals = {

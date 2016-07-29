@@ -8,9 +8,13 @@ const webpackHotMiddleware = require('webpack-hot-middleware');
 const lessParser = require('postcss-less').parse;
 const CssModulesRequireHook = require('css-modules-require-hook')
 const manifest = require('../dist/manifest.json');
-import {CSS_MODULES_LOCAL_ID_NAME} from '../webpack.config';
+import {
+    default as clientConfig,
+    CSS_MODULES_LOCAL_ID_NAME
+} from '../client.webpack.config';
 import {join, basename} from 'path';
 import * as chokidar from 'chokidar';
+import renderIndex from './index';
 
 // path require CSS
 CssModulesRequireHook({
@@ -35,12 +39,9 @@ CssModulesRequireHook({
     };
 });
 
-import webpackCofigs from '../webpack.config';
-import renderIndex from './index';
 import {get as handleGet} from './controller';
 
 const PORT = process.env.PORT || 8088;
-const clientConfig = webpackCofigs[0];
 (<any>clientConfig.entry).client.push('webpack-hot-middleware/client');
 (<any>clientConfig.entry).client.push('webpack/hot/only-dev-server');
 clientConfig.module.loaders.shift();

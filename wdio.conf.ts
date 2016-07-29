@@ -1,7 +1,9 @@
-const delay = require('q').delay;
+import {delay} from 'q';
+import {app} from './src/server';
 const isCI = require('is-ci');
+const PORT = 8090;
 
-exports.config = {
+export default {
 
     //
     // ==================
@@ -71,7 +73,7 @@ exports.config = {
     //
     // Set a base URL in order to shorten url command calls. If your url parameter starts
     // with "/", then the base url gets prepended.
-    baseUrl: 'http://0.0.0.0:8088',
+    baseUrl: `http://0.0.0.0:${PORT}`,
     //
     // Default timeout for all waitFor* commands.
     waitforTimeout: 10000,
@@ -138,6 +140,9 @@ exports.config = {
     //
     // Gets executed once before all workers get launched.
     onPrepare: function () {
+        app.listen(PORT, (error: Error) => {
+            if (error) throw error;
+        });
         if (isCI) {
             return delay(5 * 1000);
         }

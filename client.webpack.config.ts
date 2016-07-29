@@ -1,11 +1,9 @@
 import * as webpack from 'webpack';
 import {join as joinPath} from 'path';
-import {cloneDeep} from 'lodash';
 import {Configuration, Plugin} from 'webpack';
 const precss = require('precss');
 const autoprefixer = require('autoprefixer');
 const ManifestPlugin = require('webpack-manifest-plugin');
-const nodeExternals = require('webpack-node-externals');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
@@ -14,7 +12,7 @@ export const CSS_MODULES_LOCAL_ID_NAME = '[local]___[hash:base64:7]';
 const _DEVELOPMENT_ = process.env.NODE_ENV !== 'production';
 
 interface OurConfiguration extends Configuration {
-    postcss: ()=> Object[]
+    postcss: ()=> Array<{}>
 }
 
 const clientConfig: OurConfiguration = {
@@ -121,19 +119,4 @@ if (!_DEVELOPMENT_) {
     // clientConfig.output.filename = '[name]-[hash:7].js';
 }
 
-const serverConfig = cloneDeep(clientConfig);
-serverConfig.target = 'node';
-serverConfig.entry = {
-    server: ['src/server']
-};
-serverConfig.externals = [nodeExternals()];
-serverConfig.module.loaders.pop(); // remove browser CSS loader
-serverConfig.module.loaders.push({
-    test: /\.less$/,
-    loader: ExtractTextPlugin.extract(
-        `css?modules&sourceMap&localIdentName=${CSS_MODULES_LOCAL_ID_NAME}!less?sourceMap`
-    )
-});
-serverConfig.plugins.push(new ExtractTextPlugin('styles.css'));
-
-export default [clientConfig, serverConfig];
+export default clientConfig;
