@@ -17,9 +17,7 @@
     "test": "npm run unit-test && npm run e2e-test",
     "preunit-test": "npm run build",
     "unit-test": "ts-node ./node_modules/.bin/karma start karma.config.ts --single-run",
-    "pree2e-test": "npm run build",
-    "e2e-test": "tsc --jsx React --module commonjs  wdio.conf.ts && wdio",
-    "poste2e-test": "kill $(ps aux | grep '[d]ist/server.js' | awk '{print $2}')"
+    "e2e-test": "wdio"
   },
   "repository": {
     "type": "git",
