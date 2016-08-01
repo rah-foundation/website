@@ -1,5 +1,8 @@
-const delay = require('q').delay;
+const {Promise} = require('q');
+const {spawn} = require('child_process');
 const isCI = require('is-ci');
+
+let server = null;
 
 exports.config = {
 
@@ -138,9 +141,11 @@ exports.config = {
     //
     // Gets executed once before all workers get launched.
     onPrepare: function () {
-        if (isCI) {
-            return delay(5 * 1000);
-        }
+        return Promise((resolve, reject) => {
+            server = spawn('node', ['dist/server.js'], {cwd: __dirname});
+            server.stdout.on('data', resolve);
+            setTimeout(reject, 60 * 1000);
+        });
     },
     //
     // Gets executed before test execution begins. At this point you can access all global
@@ -189,6 +194,7 @@ exports.config = {
     //
     // Gets executed after all workers got shut down and the process is about to exit. It is not
     // possible to defer the end of the process using a promise.
-    // onComplete: function(exitCode) {
-    // }
+    onComplete: function(exitCode) {
+        server.kill();
+    }
 }

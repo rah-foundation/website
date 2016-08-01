@@ -4,10 +4,11 @@ import * as Express from 'express';
 import {get as handleGet} from './controller';
 
 const PORT = process.env.PORT || 8088;
-const app = Express();
+export const app = Express();
 
 app.use(Express.static('dist'));
 app.get('*', handleGet);
+
 app.listen(PORT, (error: Error) => {
     if (error) {
         return console.error(error);

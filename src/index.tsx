@@ -15,6 +15,7 @@ export default function renderIndex(renderProps: Object): string {
             <title>${t('title')}</title>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width">
+            ${ require('../dist/icons.json').html }
             ${_DEVELOPMENT_ ? '' : '<link rel="stylesheet" href="/styles.css" />'}
             ${_DEVELOPMENT_ ? '' : cdnScriptTags}
             <script src='/client.js' defer></script>
