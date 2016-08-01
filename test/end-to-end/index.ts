@@ -13,7 +13,7 @@ describe('webdriver.io page', () => {
         const allLogs = (browser.log('browser').value as any) as LogEntry[];
 
         // filter out info logs
-        const logs = allLogs.filter(log => log.level.toUpperCase() !== 'INFO');
+        const logs = allLogs.filter(log => !log.level.toUpperCase().match(/INFO|WARNING/));
 
         // Log errors for debugging
         logs.forEach(log => {
