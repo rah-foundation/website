@@ -7,7 +7,7 @@ const webpackMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const lessParser = require('postcss-less').parse;
 const CssModulesRequireHook = require('css-modules-require-hook')
-const manifest = require('../dist/manifest.json');
+
 import {
     default as clientConfig,
     CSS_MODULES_LOCAL_ID_NAME
@@ -29,6 +29,7 @@ CssModulesRequireHook({
         // TODO: filenames can colide, if this issue is solved in manifest plugin we
         //       can use full paths to fix it:
         //       https://github.com/danethurber/webpack-manifest-plugin/issues/23
+        const manifest = require('../dist/manifest.json');
         const result = manifest[basename(filename)];
         if (!result) {
             throw new Error(`Could not find ${filename} in manifest.
@@ -88,8 +89,12 @@ watcher.on('ready', () => {
             if (/src\/components/.test(id)) {
                 delete require.cache[id];
             }
+            // Delete webpack manifest cache
+            if (/manifest\.json/.test(id)) {
+                delete require.cache[id];
+            }
             // Delete cache of routes.tsx so it is re-required on app server request
-            if (/src\/routes\.tsx$/.test(id)) {
+            if (/src\/routes\.(tsx|svg|png|jpg|jpeg)$/.test(id)) {
                 delete require.cache[id];
             }
         });
