@@ -8,10 +8,7 @@ const webpackHotMiddleware = require('webpack-hot-middleware');
 const lessParser = require('postcss-less').parse;
 const CssModulesRequireHook = require('css-modules-require-hook')
 
-import {
-    default as clientConfig,
-    CSS_MODULES_LOCAL_ID_NAME
-} from '../client.webpack.config';
+import {clientConfig, CSS_MODULES_LOCAL_ID_NAME} from '../webpack.config';
 import {join, basename} from 'path';
 import * as chokidar from 'chokidar';
 import renderIndex from './index';
