@@ -49,16 +49,24 @@ export const clientConfig: OurConfiguration = {
                 loader: 'json'
             },
             {
-                test: FONT_REGEX,
-                loader: 'file'
-            },
-            {
-                test: /\.svg(\?.*)?$/,
-                loader: 'url?limit=10000&mimetype=image/svg+xml&name=[hash].[ext]'
+                test: /\.svg?$/,
+                loader: 'url',
+                query: {
+                    mimetype: 'image/svg+xml',
+                    name: '[hash].[ext]',
+                    limit: 10 * 1000 // 1K
+                }
             },
             {
                 test: /\.(jpe?g|png|gif)$/i,
-                loader: 'url?limit=1000&name=[hash].[ext]'
+                loader: 'file',
+                query: {
+                    name: '[hash].[ext]'
+                }
+            },
+            {
+                test: FONT_REGEX,
+                loader: 'file'
             },
             {
                 test: /\.less$/,
@@ -78,10 +86,10 @@ export const clientConfig: OurConfiguration = {
         ]
     },
     plugins: [
+        new ManifestPlugin(),
         new webpack.optimize.OccurenceOrderPlugin(true),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
-        new ManifestPlugin(),
         new ExtractTextPlugin('styles.css'),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
@@ -134,6 +142,7 @@ serverConfig.module.loaders.push({
         `css?modules&sourceMap&localIdentName=${CSS_MODULES_LOCAL_ID_NAME}!less?sourceMap`
     )
 });
+serverConfig.plugins.shift(); // remove manifest plugin
 serverConfig.plugins.push(new ExtractTextPlugin('styles.css'));
 
 

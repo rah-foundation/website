@@ -66,6 +66,7 @@ const webpackStatsOptions = {
 };
 
 const app = Express();
+app.use(Express.static('dist'));
 const compiler = webpack(clientConfig);
 app.use(webpackMiddleware(compiler, {
     publicPath: clientConfig.output.publicPath,
