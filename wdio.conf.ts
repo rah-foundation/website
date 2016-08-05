@@ -1,10 +1,19 @@
-const {Promise} = require('q');
-const {spawn} = require('child_process');
+import {Promise} from 'q';
+import {spawn, ChildProcess} from 'child_process';
 const isCI = require('is-ci');
 
-let server = null;
+interface WebdriverIOConfig {
+    specs: string[]
+    exclude: string[]
+    maxInstances: number
 
-exports.config = {
+    // TODO: complete the config interface
+    [x: string]: any
+}
+
+let server: ChildProcess = null;
+
+export const config: WebdriverIOConfig = {
 
     //
     // ==================
@@ -194,7 +203,7 @@ exports.config = {
     //
     // Gets executed after all workers got shut down and the process is about to exit. It is not
     // possible to defer the end of the process using a promise.
-    onComplete: function(exitCode) {
+    onComplete: function(exitCode: number) {
         server.kill();
     }
 }

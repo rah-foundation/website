@@ -17,7 +17,7 @@
     "test": "npm run unit-test && npm run e2e-test",
     "preunit-test": "npm run build",
     "unit-test": "ts-node ./node_modules/.bin/karma start karma.config.ts --single-run",
-    "e2e-test": "wdio"
+    "e2e-test": "ts-node ./node_modules/.bin/wdio wdio.conf.ts"
   },
   "repository": {
     "type": "git",
